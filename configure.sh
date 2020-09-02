@@ -14,29 +14,56 @@ rm -rf /tmp/v2ray
 install -d /usr/local/etc/v2ray
 cat << EOF > /usr/local/etc/v2ray/config.json
 {
-    "inbounds": [
-        {
+  "inbounds": [
+    {
+      "port": 1080,
+      "listen": "127.0.0.1",
+      "protocol": "socks",
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls"]
+      },
+      "settings": {
+        "auth": "noauth",
+        "udp": false
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "1stapp.herokuapp.com",
             "port": $PORT,
-            "protocol": "vmess",
-            "settings": {
-                "clients": [
-                    {
-                        "id": "$UUID",
-                        "alterId": 64
-                    }
-                ],
-                "disableInsecureEncryption": true
-            },
-            "streamSettings": {
-                "network": "ws"
-            }
-        }
-    ],
-    "outbounds": [
-        {
-            "protocol": "freedom"
-        }
-    ]
+            "users": [
+              {
+                "id": "$UUID",
+                "security": "auto",
+                "alterId": 64
+              }
+            ]
+          },
+          {
+            "address": "2ndapp.herokuapp.com",
+            "port": $PORT,
+            "users": [
+              {
+                "id": "$UUID",
+                "security": "auto",
+                "alterId": 64
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "tls"
+      }
+    }
+  ]
 }
 EOF
 
