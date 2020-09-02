@@ -35,7 +35,7 @@ cat << EOF > /usr/local/etc/v2ray/config.json
       "settings": {
         "vnext": [
           {
-            "address": "app1st.herokuapp.com",
+            "address": "vipmoon1st.herokuapp.com",
             "port": $PORT,
             "users": [
               {
@@ -46,7 +46,7 @@ cat << EOF > /usr/local/etc/v2ray/config.json
             ]
           },
           {
-            "address": "app2nd.herokuapp.com",
+            "address": "vipmoon2nd.herokuapp.com",
             "port": $PORT,
             "users": [
               {
